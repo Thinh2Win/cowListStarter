@@ -34,6 +34,17 @@ app.get('/cows', (req, res) => {
   //   });
 });
 
+app.post('/cows/add', (req, res) => {
+
+  db.query(`INSERT INTO cows (cow, about) VALUES ('${req.body.cow}',  '${req.body.about}')`, err => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.send(req.body);
+    }
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening at localhost:${3000}!`);
   // readline.question(`Choose your db: (mongo or mysql)\n>>>>>`, choice => {

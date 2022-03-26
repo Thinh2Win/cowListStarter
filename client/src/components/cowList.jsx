@@ -46,11 +46,6 @@ class CowDisplay extends React.Component {
     }
   }
 
-  // handleNameClick (e) {
-  //   console.log(this.props.cow.cow);
-  //   alert(`${this.props.cow.cow}: \n${this.props.cow.about}`);
-  // }
-
   render () {
     return (
       <div>
