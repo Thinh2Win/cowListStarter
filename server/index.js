@@ -1,6 +1,6 @@
 const express = require('express');
 // const db = require('../database/mysql').db;
-// const mdb = require('../database/mongo').mdb;
+const mdb = require('../database/mongo').mdb;
 const readline = require('readline').createInterface({
   input: process.stdin,
   output: process.stdout
@@ -18,38 +18,46 @@ app.use(express.json());
 
 //---------> MONGO <---------//
 
-
+app.get('/cows', (req, res) => {
+  mdb.find({})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(400).send(err);
+    });
+});
 
 
 //---------> MYSQL <---------//
-app.get('/cows', (req, res) => {
-  db.query('SELECT * FROM cows', (err, data) => {
-    if (err) {
-      res.status(400).send(err);
-    } else {
-      res.send(data);
-    }
-  });
+// app.get('/cows', (req, res) => {
+//   db.query('SELECT * FROM cows', (err, data) => {
+//     if (err) {
+//       res.status(400).send(err);
+//     } else {
+//       res.send(data);
+//     }
+//   });
 
-  // db.promise().query('SELECT * FROM cows')
-  //   .then(data => {
-  //     res.send(data[0]);
-  //   })
-  //   .catch(err => {
-  //     res.status(404).send(err);
-  //   });
-});
+// db.promise().query('SELECT * FROM cows')
+//   .then(data => {
+//     res.send(data[0]);
+//   })
+//   .catch(err => {
+//     res.status(404).send(err);
+//   });
+// });
 
-app.post('/cows/add', (req, res) => {
+// app.post('/cows/add', (req, res) => {
 
-  db.query(`INSERT INTO cows (cow, about) VALUES ('${req.body.cow}',  '${req.body.about}')`, err => {
-    if (err) {
-      res.status(400).send(err);
-    } else {
-      res.send(req.body);
-    }
-  });
-});
+//   db.query(`INSERT INTO cows (cow, about) VALUES ('${req.body.cow}',  '${req.body.about}')`, err => {
+//     if (err) {
+//       res.status(400).send(err);
+//     } else {
+//       res.send(req.body);
+//     }
+//   });
+// });
 
 app.listen(PORT, () => {
   console.log(`Server listening at localhost:${3000}!`);

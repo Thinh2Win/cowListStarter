@@ -7,6 +7,8 @@ mongoose.connect('mongodb://localhost:27017/cowList', (err)=>{
     return;
   }
   console.log('connected to mongo');
+  // seedCows(data);
+
 });
 
 const cowSchema = new mongoose.Schema({
@@ -17,11 +19,7 @@ const cowSchema = new mongoose.Schema({
 const Cow = mongoose.model('Cow', cowSchema);
 
 var seedCows = (cowArray) => {
-  // cowArray.forEach(cow => {
-  //   new Cow({cow: `${cow.cow}`,
-  //     about: `${cow.about}`,
-  //   });
-  // });
+
   Cow.insertMany(cowArray)
     .then(response => {
       console.log(response);
@@ -31,6 +29,6 @@ var seedCows = (cowArray) => {
     });
 };
 
-// seedCows(data);
 
-module.exports = Cow;
+
+module.exports.mdb = Cow;
