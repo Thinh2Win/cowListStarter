@@ -7,6 +7,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       cows: [],
+      cowName: '',
+      about: ''
     }
   }
 
@@ -20,9 +22,27 @@ class App extends React.Component {
       })
   }
 
+  handleCowInput(e) {
+    this.setState({[`${e.target.name}`]: e.target.value})
+  }
+
+  addCowClick() {
+    let sendCow = {cow: this.state.cowName, about: this.state.about}
+    axios.post('/cows/add', sendCow)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
   render() {
     return(
       <div>
+        <input type='text' name='cowName' placeholder='Cow Name' onChange={() => {this.handleCowInput(event)}}/>
+        <input type='text' name='about' placeholder='Description' onChange={() => {this.handleCowInput(event)}}/>
+        <button type='submit' onClick={()=> {this.addCowClick()}}> Add Cow </button>
         <h2>HackReactors Cows</h2>
         <CowList cows={this.state.cows}/>
       </div>
