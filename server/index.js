@@ -24,12 +24,24 @@ app.get('/cows', (req, res) => {
       res.send(data);
     })
     .catch(err => {
+      res.status(404).send(err);
+    });
+});
+
+app.post('/cows/add', (req, res) => {
+  mdb.create(req.body)
+    .then(response => {
+      res.send(req.body);
+    })
+    .catch(err => {
       res.status(400).send(err);
     });
 });
 
 
+
 //---------> MYSQL <---------//
+
 // app.get('/cows', (req, res) => {
 //   db.query('SELECT * FROM cows', (err, data) => {
 //     if (err) {
