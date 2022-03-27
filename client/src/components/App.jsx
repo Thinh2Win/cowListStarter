@@ -26,11 +26,22 @@ class App extends React.Component {
     this.setState({[`${e.target.name}`]: e.target.value})
   }
 
+  getCowsFromDb() {
+    axios.get('/cows')
+      .then(data => {
+        this.setState({cows: data.data});
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   addCowClick() {
     let sendCow = {cow: this.state.cowName, about: this.state.about}
     axios.post('/cows/add', sendCow)
       .then(response => {
         console.log(response);
+        this.getCowsFromDb();
       })
       .catch(err => {
         console.log(err);
