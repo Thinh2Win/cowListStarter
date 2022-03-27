@@ -1,6 +1,6 @@
 const express = require('express');
-const db = require('../database/mysql').db;
-
+// const db = require('../database/mysql').db;
+// const mdb = require('../database/mongo').mdb;
 const readline = require('readline').createInterface({
   input: process.stdin,
   output: process.stdout
@@ -16,6 +16,12 @@ app.use(express.json());
 
 
 
+//---------> MONGO <---------//
+
+
+
+
+//---------> MYSQL <---------//
 app.get('/cows', (req, res) => {
   db.query('SELECT * FROM cows', (err, data) => {
     if (err) {
